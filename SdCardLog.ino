@@ -20,8 +20,6 @@ SdFat sd;
 SdFile myFile;
 SFEMP3Shield MP3;
 
-
-//Pins Definitions
 #define RST_PIN         26
 #define SS_PIN          53
 
