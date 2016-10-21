@@ -9,6 +9,7 @@ Libraries: SdFat, SFEMP3Shield.
 */
 
 //Libraries
+
 #include <SPI.h>
 #include <SdFat.h>
 #include <SdFatUtil.h>
@@ -38,13 +39,36 @@ unsigned long over;
 #define LED_C           33
 
 //SD card Audio Files in order
-#define sound1   0
-#define sound2   1
-#define sound3   2
+#define intro    0
+#define sound1   1
+#define sound2   2
+#define sound3   3
+
+#define sound4   4
+#define sound5   5
+#define sound6   6
+#define sound7   7
+#define sound8   8
+#define sound9   9
+#define sound10  10
+#define sound11  11
+#define sound12  12
+#define sound13  13
+#define sound14  14
+#define sound15  15
+#define sound16  16
+#define sound18  18
+#define sound19  19
+#define sound20  20
+
+int sensorValue = digitalRead(18);
+
 
 int interrupcion = 0;
 int boton = 0;
 int event = 0;
+int c1 = 0;
+int c2 = 0;
 
 //Chip select for SD card
 const int chipSelect = 9;
@@ -55,11 +79,16 @@ char name[] = "File_player1.csv"; //
 const byte interruptPin = 18;
 const byte interruptPin2 = 19;
 const byte interruptPin3 = 20;
-volatile byte state = LOW;
+byte state = LOW;
 unsigned long button_time = 0;  
 unsigned long last_button_time = 0; 
 
+
+
+
 void setup() {
+
+
 
   Serial.begin(9600);
   pinMode(22, INPUT); //
@@ -74,7 +103,7 @@ void setup() {
   //outputs
   pinMode(30, OUTPUT); // LED_A
   pinMode(32, OUTPUT); // LED_B
-  pinMode(34, OUTPUT); // LED_C
+  pinMode(33, OUTPUT); // LED_C
 
   Serial.begin(9600); 
   while (!Serial);    
@@ -94,7 +123,7 @@ void setup() {
   delay(2200);
   MP3.stopTrack();
 
-  //STRINGS event,button number, ms
+    //STRINGS event,button number, ms
   String stringTitle = String("num,button,milliseconds");
   if (!myFile.open(name, O_RDWR | O_CREAT | O_AT_END)) {
     sd.errorHalt("opening File_player1.txt for write failed");
@@ -106,13 +135,11 @@ void setup() {
   myFile.close();
   pinMode(interruptPin, INPUT_PULLUP);
   Serial.println(F("SetUp Completed."));
+  
 }
-
 //ISR
 int c=0;
-
 void stimuli_on(){
-
   button_time = millis();
   //check to see if increment() was called in the last 250 milliseconds
   if (button_time - last_button_time > 250)
@@ -124,7 +151,6 @@ void stimuli_on(){
     
   }
 }
-
 void Save_log(long elapsed, int boton){
      h = int(elapsed / 3600000);
      over = elapsed % 3600000;
@@ -142,40 +168,250 @@ void Save_log(long elapsed, int boton){
      myFile.close();
      event = event + 1;  
 }
-
 void loop() {
 buttonA = digitalRead(interruptPin);
 buttonB = digitalRead(interruptPin2);
 buttonC = digitalRead(interruptPin3);
-      if (buttonA == HIGH) {
+     // Serial.println( digitalRead(18));
+     //Serial.println( digitalRead(19));
+      
+      if (digitalRead(18)==1  && c1 == 0) {//sound1
         boton = 1;
         MP3.playTrack(1);
         delay(2500); // modify delays as needed
         MP3.stopTrack();
         delay(100);
         button_pressed = millis();
-        elapsed = button_pressed - initial_time;   
+        elapsed = button_pressed - initial_time;
+        c1++; 
+        
+         Serial.println(F("boton1 sonido 1"));
       }
-      if (buttonB == HIGH) {
+      else if (digitalRead(18) == 1 && c1 == 1) {
+       boton = 1;
+       MP3.playTrack(2);
+       delay(2500); // modify delays as needed
+       MP3.stopTrack();
+       delay(100);
+       button_pressed = millis();
+       elapsed = button_pressed - initial_time;
+       c1++;   
+           Serial.println(F("boton1 sonido 2"));
+            }
+   else if (digitalRead(18) == 1 && c1 == 2) {
+       boton = 1;
+       MP3.playTrack(3);
+       delay(2500); // modify delays as needed
+       MP3.stopTrack();
+       delay(100);
+       button_pressed = millis();
+       elapsed = button_pressed - initial_time;
+      c1++;  
+           Serial.println(F("boton1 sonido 3"));
+            }
+ else if (digitalRead(18) && c1 == 3) {
+       boton = 1;
+       MP3.playTrack(4);
+       delay(2500); // modify delays as needed
+       MP3.stopTrack();
+       delay(100);
+       button_pressed = millis();
+       elapsed = button_pressed - initial_time;
+       c1++;    
+           Serial.println(F("boton1 sonido 4"));
+            }
+ else if (digitalRead(18)&& c1 == 4) {
+       boton = 1;
+       MP3.playTrack(5);
+       delay(2500); // modify delays as needed
+       MP3.stopTrack();
+       delay(100);
+       button_pressed = millis();
+       elapsed = button_pressed - initial_time;
+       c1++;    
+           Serial.println(F("boton1 sonido 5"));
+            }
+            
+ else if (digitalRead(18)&& c1 == 5) {
+       boton = 1;
+       MP3.playTrack(6);
+       delay(2500); // modify delays as needed
+       MP3.stopTrack();
+       delay(100);
+       button_pressed = millis();
+       elapsed = button_pressed - initial_time;
+       c1++;    
+           Serial.println(F("boton1 sonido 6"));
+           
+            }
+  else if (digitalRead(18) && c1 == 6) {
+       boton = 1;
+       MP3.playTrack(7);
+       delay(2500); // modify delays as needed
+       MP3.stopTrack();
+       delay(100);
+       button_pressed = millis();
+       elapsed = button_pressed - initial_time;
+       c1++;    
+               Serial.println(F("boton1 sonido 7"));
+            }
+            
+ else if (digitalRead(18) && c1 == 7) {
+       boton = 1;
+       MP3.playTrack(8);
+       delay(2500); // modify delays as needed
+       MP3.stopTrack();
+       delay(100);
+       button_pressed = millis();
+       elapsed = button_pressed - initial_time;
+       c1++;    
+                Serial.println(F("boton1 sonido 8"));
+            }
+            
+ else if (digitalRead(18) && c1 == 😎 {
+       boton = 1;
+       MP3.playTrack(9);
+       delay(2500); // modify delays as needed
+       MP3.stopTrack();
+       delay(100);
+       button_pressed = millis();
+       elapsed = button_pressed - initial_time;
+       c1++;    
+           Serial.println(F("boton1 sonido 9"));
+            }
+            
+ else if (digitalRead(18) && c1 == 9) {
+       boton = 1;
+       MP3.playTrack(10);
+       delay(2500); // modify delays as needed
+       MP3.stopTrack();
+       delay(100);
+       button_pressed = millis();
+       elapsed = button_pressed - initial_time;
+       c1=0;   
+           Serial.println(F("boton1 sonido 10"));
+            }
+            
+      ///////////////////////////////////////////////////
+    else if (digitalRead(19)==1  && c2 == 0) {
         boton = 2;
-        MP3.playTrack(2);
+                
+        MP3.playTrack(11);
         delay(2500);
         MP3.stopTrack();
         delay(100);
         button_pressed = millis();
         elapsed = button_pressed - initial_time;
+        c2++; 
+            Serial.println(F("boton2 sonido 1"));
       }
-
-      if (buttonC == HIGH) {
+  else if (digitalRead(19) ==1 && c2 == 1) {
+     boton = 2;
+            
+       MP3.playTrack(12);
+       delay(2500); // modify delays as needed
+        MP3.stopTrack();
+       delay(100);
+       button_pressed = millis();
+       elapsed = button_pressed - initial_time;
+       c2++;  
+       Serial.println(F("boton2 sonido 2"));
+            }
+ else if (digitalRead(19) && c2 == 2) {
+       boton = 2;
+       MP3.playTrack(13);
+       delay(2500); // modify delays as needed
+       MP3.stopTrack();
+       delay(100);
+       button_pressed = millis();
+       elapsed = button_pressed - initial_time;
+       c2++;    
+       Serial.println(F("boton2 sonido 3"));
+            }
+ else if (digitalRead(19) && c2 == 3) {
+       boton = 2;
+       MP3.playTrack(14);
+       delay(2500); // modify delays as needed
+       MP3.stopTrack();
+       delay(100);
+       button_pressed = millis();
+       elapsed = button_pressed - initial_time;
+       c2++;    
+       Serial.println(F("boton2 sonido 4"));
+            }
+ else if (digitalRead(19) && c2 == 4) {
+       boton = 2;
+       MP3.playTrack(15);
+       delay(2500); // modify delays as needed
+       MP3.stopTrack();
+       delay(100);
+       button_pressed = millis();
+       elapsed = button_pressed - initial_time;
+       c2++;   
+            }
+            
+ else if (digitalRead(19) && c2 == 5) {
+       boton = 2;
+       MP3.playTrack(16);
+       delay(2500); // modify delays as needed
+       MP3.stopTrack();
+       delay(100);
+       button_pressed = millis();
+       elapsed = button_pressed - initial_time;
+       c2++;    
+            }
+  else if (digitalRead(19) && c2 == 6) {
+       boton = 2;
+       MP3.playTrack(17);
+       delay(2500); // modify delays as needed
+       MP3.stopTrack();
+       delay(100);
+       button_pressed = millis();
+       elapsed = button_pressed - initial_time;
+       c2++;    
+            }
+            
+ else if (digitalRead(19) && c2 == 7) {
+       boton = 2;
+       MP3.playTrack(18);
+       delay(2500); // modify delays as needed
+       MP3.stopTrack();
+       delay(100);
+       button_pressed = millis();
+       elapsed = button_pressed - initial_time;
+       c2++;    
+            }
+            
+ else if (digitalRead(19) && c2 == 😎 {
+       boton = 2;
+       MP3.playTrack(19);
+       delay(2500); // modify delays as needed
+       MP3.stopTrack();
+       delay(100);
+       button_pressed = millis();
+       elapsed = button_pressed - initial_time;
+       c2++;    
+            }
+            
+ else if (digitalRead(19) && c2 == 9) {
+       boton = 2;
+       MP3.playTrack(20);
+       delay(2500); // modify delays as needed
+       MP3.stopTrack();
+       delay(100);
+       button_pressed = millis();
+       elapsed = button_pressed - initial_time;
+       c2=0;
+ }
+ 
+///////////////////////////////////////////////////
+     if (buttonC == LOW) {
         boton=3;
-        MP3.playTrack(3);
-        delay(2500);
-        MP3.stopTrack();
-        delay(100);
         button_pressed = millis();
         elapsed = button_pressed - initial_time;
-      }
-attachInterrupt(digitalPinToInterrupt(interruptPin), stimuli_on, FALLING);
-attachInterrupt(digitalPinToInterrupt(interruptPin2), stimuli_on, FALLING);
-attachInterrupt(digitalPinToInterrupt(interruptPin3), stimuli_on, FALLING);
+      
+      
+//attachInterrupt(digitalPinToInterrupt(interruptPin), stimuli_on, RISING);
+//attachInterrupt(digitalPinToInterrupt(interruptPin2), stimuli_on, RISING);
+////attachInterrupt(digitalPinToInterrupt(interruptPin3), stimuli_on, RISING);
 }
